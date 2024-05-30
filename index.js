@@ -1,6 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const mongoose = require("mongoose");
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger-output.json');
 
 // const swaggerUi = require('swagger-ui-express')
 // const swaggerDocument = require('./swagger-output.json');
@@ -62,7 +64,7 @@ app.all('*', (req, res, next) => {
 var options = {
   explorer: true
 };
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,options))
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
