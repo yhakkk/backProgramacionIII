@@ -11,6 +11,7 @@ const swaggerDocument = require('./swagger-output.json');
 // const loginRouter = require("./src/modules/login/login.routes");
 // const reclamoRouter = require("./src/modules/claim/claim.routes");
 const usuarioRouter = require("./src/modules/user/user.routes");
+const taskRouter = require("./src/modules/task/task.routes");
 // const areaRouter = require("./src/modules/area/area.routes");
 // const claimTypeRoute = require("./src/modules/claimType/claimType.routes");
 // const auditRoute = require("./src/modules/audit/audit.routes");
@@ -47,6 +48,7 @@ app.get("/", async (request, response) => {
 // app.use(loginRouter);
 // app.use(reclamoRouter);
 app.use(usuarioRouter);
+app.use(taskRouter);
 // app.use(areaRouter);
 // app.use(claimTypeRoute);
 // app.use(auditRoute);

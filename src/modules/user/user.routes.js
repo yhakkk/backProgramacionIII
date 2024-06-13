@@ -7,9 +7,15 @@ const router = express.Router();
 router.get("/api/user", async (req, res) => {
   // #swagger.tags = ['Usuario']
   try {
-    params = JSON.parse(req.headers['params'])
+    const paramsHeader = req.headers['params'] || '{}';
 
-    let paginated = await userService.paginated(params)
+    if (!paramsHeader) {
+      throw new Error('El encabezado "params" está ausente.');
+    }
+    const params = JSON.parse(paramsHeader);
+    console.log(params);
+
+    const paginated = await userService.paginated(params);
     return res.status(200).send(paginated);
 
   } catch (error) {
@@ -37,7 +43,7 @@ router.post("/api/user", async (req, res) => {
   // #swagger.tags = ['Usuario']
   try {
     const newUser = req.body;
-    console.log(newUser);
+    console.log("Usuario nuevo",newUser);
     const user = await userService.save(newUser);
     return res.status(201).send(user);
 

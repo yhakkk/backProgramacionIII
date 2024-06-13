@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   documento:String,
   rol:String,
   area:String,
+  tasks: [{type:Schema.Types.ObjectId, ref:'Task'}]
 });
 
 const userModel = mongoose.model("User", userSchema);
