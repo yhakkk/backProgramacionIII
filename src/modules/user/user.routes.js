@@ -68,6 +68,27 @@ router.put("/api/user/:id",  async (req, res) => {
   }
 });
 
+// PUT /api/user/:id/task
+router.put("/api/user/:id/task", async (req, res) => {
+    // #swagger.tags = ['Usuario']
+  try {
+    const userId = req.params.id;
+    const taskId = req.body.taskId; // Suponiendo que recibimos el ID de la tarea desde el body
+
+    const user = await userService.addTaskToUser(taskId, userId);
+    
+    if (!user) {
+      return res.status(404).send("Usuario no encontrado.");
+    }
+    
+    return res.status(200).send(user);
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message);
+  }
+});
+
 // DELETE /api/user/:id
 router.delete("/api/user/:id", async (req, res) => {
   // #swagger.tags = ['Usuario']

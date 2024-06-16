@@ -6,6 +6,7 @@ const router = express.Router();
 
 //Get api/user
 router.get("/api/task", async (req,res)=>{
+      // #swagger.tags = ['Task']
     try {
         const tasks = await taskService.findAll();
         res.status(200).send(tasks);
@@ -15,10 +16,10 @@ router.get("/api/task", async (req,res)=>{
     }
 })
 
-
 //Post api/user
 
 router.post("/api/task", async (req,res)=>{
+        // #swagger.tags = ['Task']
     try {
         const newTask = req.body;
         const task = await taskService.save(newTask)
@@ -34,6 +35,47 @@ router.post("/api/task", async (req,res)=>{
     }
 
 });
+
+router.get("/api/task/:id", async (req,res)=>{
+    // #swagger.tags = ['Task']
+    try {
+        const taskId = req.params.id;
+        const task = await taskService.findOneById(taskId);
+        return res.status(200).send(task);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send(error);
+    }
+})
+
+router.put("/api/task/:id", async (req,res) => {
+    // #swagger.tags = ['Task']
+    try {
+        const taskId = req.params.id;
+        const upTask = req.body;
+        const task = await taskService.updateTask(taskId, upTask);
+        return res.status(200).send(task)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+});
+
+
+
+router.delete("/api/task/:id", async (req,res)=>{
+    // #swagger.tags = ['Task']
+
+    try {
+        const taskId = req.params.id;
+        await taskService.deleteTask(taskId);
+        return res.status(200).send("Task Eliminada")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+
+})
 
 
 

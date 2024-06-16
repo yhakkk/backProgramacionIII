@@ -21,9 +21,9 @@ async function createIfNotExists(taskData) {
     return await taskModel.find().populate('user').exec();
 }
 
-  async function findTasksByUserId(userId) {
+  async function findOneById(_id) {
     try {
-      const tasks = await taskModel.find({ user: userId }).populate('user');
+      const tasks = await taskModel.findById(_id).exec();
       return tasks;
     } catch (error) {
       throw new Error('Error finding tasks: ' + error.message);
@@ -50,12 +50,13 @@ async function createIfNotExists(taskData) {
   
     return pager.createPager(page,data,count,perPage)
   }
-  
+
+
 
   // Actualizar una tarea
 async function updateTask(taskId, taskData) {
     try {
-      const updatedTask = await Task.findByIdAndUpdate(taskId, taskData, { new: true });
+      const updatedTask = await taskModel.findByIdAndUpdate(taskId, taskData, { new: true }).exec();
       return updatedTask;
     } catch (error) {
       throw new Error('Error updating task: ' + error.message);
@@ -65,7 +66,7 @@ async function updateTask(taskId, taskData) {
   // Eliminar una tarea
   async function deleteTask(taskId) {
     try {
-      await Task.findByIdAndDelete(taskId);
+      await taskModel.findByIdAndDelete(taskId);
       return { message: 'Task deleted successfully' };
     } catch (error) {
       throw new Error('Error deleting task: ' + error.message);
@@ -74,7 +75,7 @@ async function updateTask(taskId, taskData) {
   
   module.exports = {
     createIfNotExists,
-    findTasksByUserId,
+    findOneById,
     updateTask,
     deleteTask,
     findAll,

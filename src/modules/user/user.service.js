@@ -47,5 +47,26 @@ async function remove(id) {
   }
   
 
+  async function addTaskToUser(taskId, userId) {
+    try {   
+      // Busca al usuario por su ID
+      const user = await userModel.findById(userId);
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+    
+      // Agrega el taskId al arreglo de tareas del usuario (suponiendo que user.tasks es un arreglo de IDs de tareas)
+      user.tasks.push(taskId);
+      
+      // Guarda los cambios en el usuario
+      await user.save();
+      
+      return user;
+    } catch (error) {
+      console.error('Error al agregar la tarea al usuario:', error);
+      throw new Error('Error al agregar la tarea al usuario');
+    }
+  }
 
-module.exports = { createIfNotExists,findOneById, findOne, save, paginated, update, remove };
+
+module.exports = { createIfNotExists,findOneById, findOne, save, paginated, update, remove, addTaskToUser };
