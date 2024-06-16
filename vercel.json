@@ -1,9 +1,4 @@
 {
-    "functions": {
-      "api/*": {
-        "maxDuration": 10
-      }
-    },
     "builds": [
       {
         "src": "api/*.js",
