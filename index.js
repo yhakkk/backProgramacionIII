@@ -28,7 +28,11 @@ const port = process.env.PORT
 
 
 // Enable CORS
-app.use(cors());
+app.use(cors({
+  origin: '*', // o '*'
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Enable the use of request body parsing middleware
 app.use(bodyParser.json());
