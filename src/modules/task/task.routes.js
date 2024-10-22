@@ -8,8 +8,8 @@ const router = express.Router();
 router.get("/api/task", async (req,res)=>{
       // #swagger.tags = ['Task']
     try {
-        const tasks = await taskService.findAll();
-        res.status(200).send(tasks);
+        const paginatedTasks = await taskService.paginated(req);
+        res.status(200).json(paginatedTasks);
     } catch (error) {
         console.log(error)
         res.status(500).send(error)
